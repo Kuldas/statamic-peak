@@ -1,5 +1,389 @@
 # Changelog
 
+## v19.9.0 (2024-08-27)
+
+### What's new
+- German CP translation strings. #397 by @carstenjaksch
+
+## v19.8.0 (2024-08-27)
+
+### What's new
+- Add a files fieldtype partial for forms. 6f2e7429 by @robdekort
+
+## v19.7.2 (2024-08-25)
+
+### What's improved
+- Set `prose-sm` default line height. 287cd4c9 by @robdekort
+
+## v19.7.1 (2024-08-22)
+
+### What's improved
+- Add back `assets` filesystem so users who install Peak after installing Statamic don't get an error. 8bb30f4b by @robdekort
+
+## v19.7.0 (2024-08-07)
+
+### What's new
+- Sync config files with Statamic. 07518ad4 by @robdekort
+
+## v19.6.0 (2024-08-07)
+
+### What's new
+- Use Rollup chunking. f9d97008 by @robdekort
+
+## v19.5.1 (2024-08-05)
+
+### What's improved
+- Replace remaining `space-*` utilities with `gap-*`. 77001eac by @robdekort
+
+## v19.5.0 (2024-07-11)
+
+### What's new
+- Reorder asset containers in `preferences.yaml`. 2f10b533 by @robdekort
+
+## v19.4.1 (2024-07-04)
+
+### What's improved
+- Merge Statamic changes into `cp.php`. 7a01163f by @robdekort
+- Remove unused `order` property from asset containers. c94e0e66 by @robdekort
+
+## v19.4.0 (2024-06-26)
+
+### What's new
+- Prevent non super users from editing super users. 5e56b252 by @jasonvarga
+
+## v19.3.5 (2024-06-25)
+
+### What's changed
+- Stache watcher defaults to auto. b0857de9 by @robdekort
+- Remove redundant config files. 699c82c9 by @robdekort
+
+### What's fixed
+- Tpyo in the post install hook. 7dfce349 by @robdekort
+
+## v19.3.4 (2024-06-20)
+
+### What's changed
+- Remove `users.php` from the starter kit. c4f827a3 by @robdekort
+
+## v19.3.3 (2024-06-17)
+
+### What's improved
+- Improve Forge deploy script. 4dd93599 by @DanielDarrenJones
+- Post install improvements. e055d73a 1e29020f by @robdekort
+- Update dependencies. 66fee7ae by @robdekort
+
+## v19.3.2 (2024-06-05)
+
+### What's fixed
+- Fix precognition validation for toggle field. b5e2c056 by @robdekort
+
+### What's changed
+- Updated dependencies and recompile assets. 8477a937 by @robdekort
+
+## v19.3.1 (2024-05-29)
+
+### What's improved
+- Add labels to replicator add set buttons. 6b316ba7 by @robdekort
+
+## v19.3.0 (2024-05-28)
+
+### What's new
+- Prepare for orderable asset containers. b3210a64 by @robdekort
+
+### What's improved
+- More robust form field instruction positioning. #390 by @prikkprikkprikk
+
+## v19.2.0 (2024-05-28)
+
+### What's new
+- Use autocomplete values on relevant form fields. 3ec1c58f by @robdekort
+
+## v19.1.1 (2024-05-24)
+
+### What's fixed
+- Set explicit form button type. 7b00972e by @robdekort
+
+## v19.1.0 (2024-05-22)
+
+### What's new
+- Add dark mode logo option to .env and readme. aa6c400a by @robdekort
+
+## v19.0.0 (2024-05-09)
+
+### What's new
+- Statamic v5 and Laravel 11 support including: updated config files, prefix SVG tag attributes, updated post install script to support Statamic v5, a new composer auto update workflow option in the post install script, an external link icon for buttons, a more readable button partial and an improve Ploi deploy script. #389 by @robdekort
+
+## v18.7.0 (2024-04-19)
+
+### What's improved
+- Install `spatie/image` when installing `Browsershot` in the post install script. 4d44b600 by @robdekort
+
+## v18.6.0 (2024-04-04)
+
+### What's improved
+- Auto open the mobile sub navigation when the current page is a child. d40d401d by @robdekort
+
+## v18.5.0 (2024-04-03)
+
+### What's improved
+- Use aria-current="page" on navs. 5bb50ac5 by @robdekort
+- More resillient buttons on small screens and improved outline color. 89949a69 by @robdekort
+- Vertical align table cells to the top. 6ba2b218 by @robdekort
+- Change wording for consent reset link. 56f11c00 by @robdekort
+
+## v18.4.0 (2024-03-21)
+
+### What's new
+- Updated Dutch translations. 80c45e9e by @robdekort
+- Recompiled assets for new Consent Banner options. a54622a8 by @robdekort
+
+## v18.3.0 (2024-03-12)
+
+### What's new
+- Add an option to configure various local mailers in the post install script. c4f81fb8 by @robdekort
+
+## v18.2.2 (2024-03-12)
+
+### What's improved
+- Add `Reject all` to string files to for the new `Reject all` button in the consent banner. eabe148b by @robdekort
+
+## v18.2.1 (2024-03-12)
+
+### What's improved
+- Update Dutch translations. 23a5be8e by @robdekort
+
+## v18.2.0 (2024-03-12)
+
+### What's new
+- A `tracker_event` in the button fieldset to fire custom events using GTAG, GTM or Fathom. An update and an update script in the Tools addon will automatically add this to existing sites. 3351ac62 by @robdekort
+
+## v18.1.0 (2024-03-09)
+
+### What's new
+- Option to pass in `aspect_ratio` and `explainer` to consent gate. 7184a402 by @robdekort
+
+### What's changed
+- Removed `SAVE_CACHED_IMAGES` environmental variable. 9982f2aa by @robdekort
+
+## v18.0.1 (2024-03-05)
+
+### What's improved
+- Remove unused CSS line regarding focus. b97f2bfe by @robdekort
+- Use focus instead of focus visible in consent gate. d1954a1d by @robdekort
+
+## v18.0.0 (2024-03-01)
+
+### What's new
+- Use focus outlines instead of rings and set a default #384 by @robdekort and @klickreflex
+- Use extendable reusable consent gate partial #386 by @robdekort
+
+### What's improved
+- Danish translations. #385 by @martinduefrandsen
+
+## v17.9.1 (2024-02-20)
+
+### What's improved
+- Add license information to the starter kit post install information. 9b61ad8b by @robdekort
+
+## v17.9.0 (2024-02-19)
+
+### What's new
+- A prompt to enter your Statamic license key during install. 29203d22 by @robdekort
+
+## v17.8.0 (2024-02-18)
+
+### What's new
+- Use paid Statamic Peak Commands addon going forward.
+
+## v17.7.0 (2024-02-14)
+
+### What's improved
+- The `stack-space-*` utilities can now override parent stack space without having to explicitly specify breakpoints. fb815578 by @aerni
+
+## v17.6.0 (2024-02-13)
+
+### What's new
+- Add `stack-collapse` utility to collapse space between stack items with this class. 28f96ffb by @robdekort
+
+## v17.5.1 (2024-02-09)
+
+### What's improved
+- Add x-model attribute to honeypot field. 603fde18 by @robdekort
+
+## v17.5.0 (2024-02-03)
+
+### What's improved
+- Set stack space property only on direct children when using stacks so you can nest stacks without conflicts. 0a48a9fe by @robdekort
+
+## v17.4.1 (2024-01-30)
+
+### What's new
+- Fix form layout on small screens. f7e59296 by @robdekort
+
+## v17.4.0 (2024-01-26)
+
+### What's new
+- Extract block wrapper to partial. e5d86683 by @robdekort
+- Lower default prose line height. c31e3a70 by @robdekort
+
+## v17.3.0 (2024-01-24)
+
+### What's new
+- Add exempt from alt toggle to images blueprint used in Statamic Peak Tools 4.4.0. c541255f by @robdekort
+- A prompt in the post install hook to set a locale for the default site. 966ee827 by @robdekort
+- Use local PNG logo as email header. 93fb197b by @robdekort
+
+## v17.2.0 (2024-01-22)
+
+### What's new
+- Update dependencies and recompile assets. 786324ef by @robdekort
+
+## v17.1.1 (2024-01-19)
+
+### What's new
+- Add back `white-space:pre-line` to form emails. Reverted from #370. 6eaa4e9c by @robdekort
+
+## v17.1.0 (2024-01-18)
+
+### What's new
+- A more accessible cards block. 8111c7a0 by @robdekort
+
+## v17.0.0 (2024-01-05)
+
+### What's new
+- Fluid grid. #373 by @robdekort and @marcorieser
+- Rewritten Consent banner support. #374 by @robdekort and @marcorieser
+
+## v16.8.1 (2023-12-25)
+
+### What's fixed
+- Fix grammar on caption. #372 by @jaygeorge
+- Trim a trailing space from long form content pull quote. #371 by @jaygeorge
+
+## v16.8.0 (2023-12-22)
+
+### What's new
+- Recompile assets for Statamic Peak Tools 4.2.0. 579dcebc by @robdekort
+
+## v16.7.0 (2023-12-20)
+
+### What's new
+- Update to Vite 5. a80bd774 by @robdekort
+
+## v16.6.0 (2023-12-19)
+
+### What's new
+- Skip Laravel Search Prompts on Windows (non WSL). 75824123 by @robdekort
+
+## v16.5.0 (2023-12-13)
+
+### What's improved
+- Form email improvements. #370 by @AndreasSchantl
+
+## v16.4.0 (2023-12-13)
+
+### What's improved
+- Move form error labels below form elements again to prevent jumpyness. Since they trigger on blur the user will almost certainly see them and on submit they get focused on the error summary anyways. 93be7746 by @robdekort
+- Remove redundant `focus-visible` config from `tailwind.config.peak.js`. 0f37fa8e by @robdekort
+
+## v16.3.0 (2023-12-12)
+
+### What's improved
+- Button attributes moved the Statamic Peak Tools Addon. References in your templates will automatically be updated when you update to Statamic Peak Tools v4.1.0. c0008108 by @robdekort
+
+## v16.2.0 (2023-12-10)
+
+### What's new
+- Use Video field for video embeds. f39567e3 by @robdekort
+
+## v16.1.3 (2023-12-07)
+
+### What's fixed
+- Only show error summary after submitting a form. This will automatically be fixed when you update to Statamic Peak Tools v4.0.3. 8d02c2e2 by @robdekort
+
+## v16.1.2 (2023-12-06)
+
+### What's fixed
+- Issues with checkboxes, radio buttons and asset fields not submitting and working properly. This will automatically be fixed when you update to Statamic Peak Tools 4.0.2. c0bbd263 by @robdekort
+
+## v16.1.1 (2023-12-04)
+
+### What's improved
+- Rename JS form driver handle. ab20f3cc by @robdekort
+
+## v16.1.0 (2023-12-01)
+
+### What's improved
+- More DRY form fields. #364 by @andreasschantl
+
+## v16.0.1 (2023-12-01)
+
+### What's new
+- Install Statamic Peak Commands v3.0.0 by default. 24064c63 by @robdekort
+
+## v16.0.0 (2023-12-01)
+
+### What's new
+- Laravel Precognition support and improved accessibility in Forms. Requires Statamic Peak Tools v4.0.0. #359 by @robdekort and @ryanmitchell
+- Add stack utilities in favour of outer-grid #363 by @robdekort
+
+## v15.18.0 (2023-11-30)
+
+### What's new
+- Option to clear peak content from install script #362 by @marcorieser
+- Add assets config option to append original filename. 13f15ca3 by @robdekort
+- Add `focus: true` to assets alt textarea. f8ada4fb by @robdekort
+
+### What's improved
+- Suggest installable languages based on Laravel Lang. #355 by @marcorierser
+- Check for GitHub CLI in install script #360. by @marcorieser
+
+## v15.17.0 (2023-11-16)
+
+### What's improved
+- Add fuzzy search to timezone option in post install script. #357 by @marcorieser
+
+### What's changed
+- Remove option to enable `SAVE_CACHED_IMAGES` from the post install script. e8e636ef by @robdekort
+- Remove redundant resetting of Tailwind presets in `tailwind.config.site.js`. 4631b9c4 by @robdekort
+- Remove redundant options for the Missing Alt Text widget. 4631b9c4 by @robdekort
+
+## v15.16.2 (2023-11-06)
+
+### What's improved
+- Make the timezone required during Starter Kit Post Install. a2390aad by @robdekort
+
+## v15.16.1 (2023-11-06)
+
+### What's fixed
+- Fix creating a public repo on GitHub during Starter Kit Post Install. 39f3957a by @robdekort
+
+## v15.16.0 (2023-11-06)
+
+### What's new
+- Add option to set a timezone in Starter Kit Post Install. 468d24ad by @robdekort
+
+## v15.15.0 (2023-11-03)
+
+### What's new
+- Add option to create a (private) repository on Github in Starter Kit Post Install. ae48f16e by @robdekort
+
+## v15.14.0 (2023-11-01)
+
+### What's new
+- Use Prompts in Starter Kit Post Install. #348 by @marcorieser
+
+## v15.13.0 (2023-10-29)
+
+### What's new
+- Prevent users from deleting entries that have a collection mounted. 3dc40ed1 by @robdekort
+- Updated roles. d4e608d5 by @robdekort
+
+## v15.12.0 (2023-10-19)
+
+### What's new
+- Add Markdown content to the Tailwind content config so the browser refreshes when making CP changes. bb505908 by @robdekort
+
 ## v15.11.0 (2023-10-13)
 
 ### What's new

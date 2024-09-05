@@ -1,5 +1,6 @@
 title: SEO
 data:
+  title_separator: ·
   noindex_local: true
   noindex_staging: true
   noindex_production: false
@@ -7,6 +8,7 @@ data:
   json_ld_type: none
   breadcrumbs: false
   use_social_image_generation: false
+  use_sitemap: true
   sitemap_collections:
     - pages
   trackers_local: false
@@ -17,4 +19,4 @@ data:
   use_plausible: false
   use_cloudflare_web_analytics: false
   tracker_type: none
-  use_cookie_banner: false
+  use_consent_banner: false

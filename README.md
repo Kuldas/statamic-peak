@@ -6,7 +6,7 @@ Peak is your personal development sherpa. It's an opinionated starter kit for al
 
 The aim of Peak is to make it easy to start new projects as they often share much of the same principles. Whether you're new to Statamic or a veteran, there will be something interesting in here for you. Please participate and discuss on how to make our websites better.
 
-Maintaining Peak demands a lot of my time and it probably saves you a lot. Your sponsoring would mean a great deal to me as it makes it much easier for me to maintain this project and keep improving it. [Sponsor me](https://github.com/sponsors/studio1902).
+Maintaining Peak demands a lot of my time and it probably saves you a lot. Your sponsorship would mean a great deal to me as it makes it much easier for me to maintain this project and keep improving it. [Sponsor me](https://github.com/sponsors/studio1902). You can find [official support on my website](https://1902.studio/en/peak-support).
 
 [Read the docs](https://peak.1902.studio).
 
@@ -16,4 +16,4 @@ Contributions and discussions are always welcome, no matter how large or small. 
 Read more about [how you can contribute](https://peak.1902.studio/other/contributing.html) here.
 
 ## License
-Statamic Peak is licensed under the GNU General Public License v3.0. Please see [License File](LICENSE.md) for more information. Statamic itself is commercial software and has its' own license.
+Statamic Peak is licensed under the GNU General Public License v3.0. Please see [License File](LICENSE) for more information. Statamic itself is commercial software and has its' own license.

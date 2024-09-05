@@ -48,7 +48,7 @@ page_builder:
           values:
             type: pull_quote
             size: lg
-            quote: 'Maecenas imperdiet mauris non posuere dignissim. Duis tempus molestie efficitur. '
+            quote: 'Maecenas imperdiet mauris non posuere dignissim. Duis tempus molestie efficitur.'
             author: 'Studio 1902'
       -
         type: paragraph
@@ -108,7 +108,7 @@ page_builder:
           values:
             type: image
             size: xl
-            caption: 'Get on top of the Peak.'
+            caption: 'Get to the top of the Peak.'
             image: a-peak.jpg
       -
         type: paragraph

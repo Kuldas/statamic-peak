@@ -26,6 +26,7 @@ module.exports = {
       spacing: {
         // Used for the mobile navigation toggle.
         'safe': 'calc(env(safe-area-inset-bottom, 0rem) + 2rem)',
+        'fluid-grid-gap': 'var(--col-gap)'
       },
       zIndex: {
         // Z-index stuff behind it's parent.
@@ -38,7 +39,7 @@ module.exports = {
     require('@tailwindcss/forms')({
       strategy: 'base',
     }),
-    plugin(function({ addBase, theme }) {
+    plugin(function({ addComponents, addUtilities, matchUtilities, addBase, theme }) {
       addBase({
         ':root': {
           // Fluid typography from 1 rem to 1.2 rem with fallback to 16px.
@@ -51,61 +52,97 @@ module.exports = {
         '[x-cloak]': {
           display: 'none !important'
         },
-        // Implement the focus-visible polyfill: https://github.com/WICG/focus-visible
-        '.js-focus-visible :focus:not(.focus-visible)': {
-          outline: 'none',
-        },
         // Display screen breakpoints in debug environment.
         '.breakpoint:before': {
           display: 'block',
           color: theme('colors.yellow.900'),
           textTransform: 'uppercase',
           content: '"-"',
+        }
+      }),
+      // Fluid grid components.
+      addComponents({
+        '.fluid-grid': {
+          '--col-gap': 'clamp(1rem, 3vw, 4rem)',
+          '--content-max-width': theme('screens.xl'),
+          '--col-width': `calc((min(calc(100% - var(--padding-left) - var(--padding-right) - 2 * var(--col-gap)), var(--content-max-width)) - 11 * var(--col-gap)) / 12)`,
+          '--padding-left': 'clamp(calc(env(safe-area-inset-left, 0rem) + 1rem), 2vw, calc(env(safe-area-inset-left, 0rem) + 2rem))',
+          '--padding-right': 'clamp(calc(env(safe-area-inset-right, 0rem) + 1rem), 2vw, calc(env(safe-area-inset-right, 0rem) + 2rem))',
+          '--side-width': 'minmax(0, 1fr)',
+          display: 'grid',
+          columnGap: 'var(--col-gap)',
+          gridTemplateColumns: '[full-start] var(--side-width) [content-start col-1] var(--col-width) [col-2] var(--col-width) [col-3] var(--col-width) [col-4] var(--col-width) [col-5] var(--col-width) [col-6] var(--col-width) [col-7] var(--col-width) [col-8] var(--col-width) [col-9] var(--col-width) [col-10] var(--col-width) [col-11] var(--col-width) [col-12] var(--col-width) [content-end] var(--side-width) [full-end]',
+        }
+      }),
+      // Add fluid grid utilities.
+      addUtilities({
+        '.span-content, .span-md, .span-lg, .span-xl': {
+          gridColumn: 'content'
         },
-        // Sizing utilities for sets in our bard (long form content).
-        // On small devices they're full width.
-        '.size-md, .size-lg, .size-xl': {
-          gridColumn: 'span 12 / span 12',
+        '.span-full': {
+          gridColumn: 'full'
         },
         '@media screen(md)': {
-          // Sizing utilities for sets in our bard (long form content).
-          // On larger devices they go from medium to extra large.
-          // (E.g. an image wider then text in an article.)
-          '.size-md': {
-            gridColumn: 'span 8 / span 8',
-            gridColumnStart: '3',
+          '.span-md': {
+            gridColumn: 'col-3 / span 8'
           },
-          '.size-lg': {
-            gridColumn: 'span 8 / span 8',
-            gridColumnStart: '3',
+          '.span-lg': {
+            gridColumn: 'col-2 / span 10'
           },
-          '.size-xl': {
-            gridColumn: 'span 10 / span 10',
-            gridColumnStart: '2',
-          },
+          '.span-xl': {
+            gridColumn: 'col-1 / span 12'
+          }
         },
         '@media screen(lg)': {
-          // Sizing utilities for sets in our bard (long form content).
-          // On larger devices they go from medium to extra large.
-          '.size-md': {
-            gridColumn: 'span 6 / span 6',
-            gridColumnStart: '4',
+          '.span-md': {
+            gridColumn: 'col-4 / span 6'
           },
-          '.size-lg': {
-            gridColumn: 'span 8 / span 8',
-            gridColumnStart: '3',
+          '.span-lg': {
+            gridColumn: 'col-3 / span 8'
           },
-          '.size-xl': {
-            gridColumn: 'span 10 / span 10',
-            gridColumnStart: '2',
+          '.span-xl': {
+            gridColumn: 'col-2 / span 10'
+          }
+        }
+      }),
+      // Stack utilities.
+      matchUtilities(
+      {
+        'stack': (value) => ({
+          '> *': {
+            '--stack-space': value,
+          },
+          '> *:not(.no-space-y, .no-space-b) + *:not(.no-space-y, .no-space-t)': {
+            'margin-block-start': `var(--stack-item-space, var(--stack-space, ${theme('spacing.16')}))`
+          },
+        }),
+        'stack-space': (value) => ({
+          '--stack-item-space': value,
+          '&:is([class*="stack-"][class*="stack-space-"] > *)': {
+            '--stack-item-space': value,
+          },
+        }),
+        },
+        { values: theme('spacing') }
+      ),
+      addUtilities({
+        '[class*="stack-"][class*="stack-space-"]': {
+          '& > *': {
+            '--stack-item-space': 'initial',
           },
         },
-      })
-    }),
-
-    // Render screen names in the breakpoint display.
-    plugin(function({ addBase, theme}) {
-      const breakpoints = Object.entries(theme('screens'))
+        '.stack-space-inherit': {
+          '--stack-item-space': 'initial',
+          '&:is([class*="stack-"][class*="stack-space-"] > *)': {
+            '--stack-item-space': 'initial',
+          },
+        },
+        '*:is(.stack-space-collapse) + *:is(.stack-space-collapse)': {
+          '--stack-item-space': 0,
+        },
+      }),
+      // Render screen names in the breakpoint display.
+      addBase(Object.entries(theme('screens'))
         .filter(value => typeof value[1] == 'string')
         .sort((a, b) => {
           return a[1].replace(/\D/g, '') - b[1].replace(/\D/g, '')
@@ -119,78 +156,7 @@ module.exports = {
             }
           }
         }
-      )
-
-      addBase(breakpoints)
-    }),
-
-    plugin(function({ addComponents, theme }) {
-      const components = {
-        // The main wrapper for all sections on our website. Has a max width and is centered.
-        '.fluid-container': {
-          width: '100%',
-          maxWidth: theme('screens.xl'),
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          // Use safe-area-inset together with default padding for Apple devices with a notch.
-          paddingLeft: `calc(env(safe-area-inset-left, 0rem) + ${theme('padding.8')})`,
-          paddingRight: `calc(env(safe-area-inset-right, 0rem) + ${theme('padding.8')})`,
-        },
-        // The outer grid where all block builder blocks are a child of. Spreads out all blocks
-        // vertically with a uniform space between them.
-        '.outer-grid': {
-          width: '100%',
-          display: 'grid',
-          rowGap: theme('spacing.12'),
-          paddingTop: theme('spacing.12'),
-          paddingBottom: theme('spacing.12'),
-          // If the last child of the outer grid is full width (e.g. when it has a full width
-          // colored background), give it negative margin bottom to get it flush to your
-          // sites footer.
-          '&>*:last-child:is([class~="w-full"])': {
-            marginBottom: `-${theme('spacing.12')}`,
-          },
-        },
-        '@media screen(md)': {
-          // Larger vertical spacing between blocks on larger screens.
-          '.outer-grid': {
-            rowGap: theme('spacing.16'),
-            paddingTop: theme('spacing.16'),
-            paddingBottom: theme('spacing.16'),
-            '&>*:last-child:is([class~="w-full"])': {
-              marginBottom: `-${theme('spacing.16')}`,
-            },
-          },
-        },
-        '@media screen(lg)': {
-          // Larger horizontal padding on larger screens.
-          '.fluid-container': {
-            // Use safe-area-inset together with default padding for Apple devices with a notch.
-            paddingLeft: `calc(env(safe-area-inset-left, 0rem) + ${theme('padding.12')})`,
-            paddingRight: `calc(env(safe-area-inset-right, 0rem) + ${theme('padding.12')})`,
-          },
-          // Larger vertical spacing between blocks on larger screens.
-          '.outer-grid': {
-            rowGap: theme('spacing.24'),
-            paddingTop: theme('spacing.24'),
-            paddingBottom: theme('spacing.24'),
-            '&>*:last-child:is([class~="w-full"])': {
-              marginBottom: `-${theme('spacing.24')}`,
-            },
-          },
-        },
-      }
-      addComponents(components)
-    }),
-
-    plugin(function({ addUtilities, theme, variants }) {
-      const newUtilities = {
-        // Fill icons that have a fill defined within their paths. For example coming from an asset container.
-        '.fill-current-cascade *': {
-          fill: 'currentColor',
-        },
-      }
-      addUtilities(newUtilities)
+      ))
     }),
   ]
 }

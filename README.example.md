@@ -22,20 +22,48 @@ APP_NAME="Statamic Peak"
 APP_ENV=production
 APP_KEY=
 APP_DEBUG=false
+APP_TIMEZONE="UTC"
 APP_URL=
 
-DEBUGBAR_ENABLED=false
+APP_LOCALE=en
+APP_FALLBACK_LOCALE=en
+APP_FAKER_LOCALE=en_US
+
+APP_MAINTENANCE_DRIVER=file
+APP_MAINTENANCE_STORE=file
+
+BCRYPT_ROUNDS=12
 
 LOG_CHANNEL=stack
+LOG_STACK=single
+LOG_DEPRECATIONS_CHANNEL=null
+LOG_LEVEL=debug
 
-BROADCAST_DRIVER=log
-CACHE_DRIVER=file
-QUEUE_CONNECTION=redis
+DB_CONNECTION=sqlite
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=laravel
+# DB_USERNAME=root
+# DB_PASSWORD=
+
 SESSION_DRIVER=file
 SESSION_LIFETIME=120
+SESSION_ENCRYPT=false
+SESSION_PATH=/
+SESSION_DOMAIN=null
 
-REDIS_HOST=127.0.0.1
+BROADCAST_CONNECTION=log
+FILESYSTEM_DISK=local
+QUEUE_CONNECTION=redis
+
+CACHE_STORE=file
+CACHE_PREFIX=
+
+MEMCACHED_HOST=127.0.0.1
+
+REDIS_CLIENT=phpredis
 REDIS_DATABASE=
+REDIS_HOST=127.0.0.1
 REDIS_PASSWORD=null
 REDIS_PORT=6379
 
@@ -48,26 +76,33 @@ MAIL_PASSWORD=
 MAIL_FROM_ADDRESS=
 MAIL_FROM_NAME="${APP_NAME}"
 
-#IMAGE_MANIPULATION_DRIVER=imagick
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_DEFAULT_REGION=us-east-1
+AWS_BUCKET=
+AWS_USE_PATH_STYLE_ENDPOINT=false
+
+VITE_APP_NAME="${APP_NAME}"
 
 STATAMIC_LICENSE_KEY=
 STATAMIC_THEME=business
-
-STATAMIC_API_ENABLED=false
+STATAMIC_PRO_ENABLED=true
+STATAMIC_STACHE_WATCHER=auto
+STATAMIC_STATIC_CACHING_STRATEGY=full
+STATAMIC_CACHE_TAGS_ENABLED=true
 STATAMIC_REVISIONS_ENABLED=false
-
+STATAMIC_GRAPHQL_ENABLED=false
+STATAMIC_API_ENABLED=false
 STATAMIC_GIT_ENABLED=true
 STATAMIC_GIT_PUSH=true
 STATAMIC_GIT_DISPATCH_DELAY=5
 
-STATAMIC_STATIC_CACHING_STRATEGY=full
-SAVE_CACHED_IMAGES=false
-STATAMIC_STACHE_WATCHER=false
-STATAMIC_CACHE_TAGS_ENABLED=true
+#IMAGE_MANIPULATION_DRIVER=imagick
 
 #STATAMIC_CUSTOM_CMS_NAME=
-STATAMIC_CUSTOM_LOGO_OUTSIDE_URL="/visuals/client-logo.svg"
 #STATAMIC_CUSTOM_LOGO_NAV_URL=
+#STATAMIC_CUSTOM_DARK_LOGO_URL=
+STATAMIC_CUSTOM_LOGO_OUTSIDE_URL="/visuals/client-logo.svg"
 #STATAMIC_CUSTOM_FAVICON_URL=
 #STATAMIC_CUSTOM_CSS_URL=
 ```
@@ -93,11 +128,9 @@ map $sent_http_content_type $expires {
 ## Deploy script Ploi
 
 ```bash
-if [[ {COMMIT_MESSAGE} =~ "[BOT]" ]]; then
+if [[ {COMMIT_MESSAGE} =~ "[BOT]" ]] && [[ {DEPLOYMENT_SOURCE} == "quick-deploy" ]]; then
     echo "Automatically committed on production. Nothing to deploy."
     {DO_NOT_NOTIFY}
-    # Uncomment the following line when using zero downtime deployments.
-    # {CLEAR_NEW_RELEASE}
     exit 0
 fi
 
@@ -107,6 +140,9 @@ composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
 
 npm ci
 npm run build
+
+{RELOAD_PHP_FPM}
+
 {SITE_PHP} artisan cache:clear
 {SITE_PHP} artisan config:cache
 {SITE_PHP} artisan route:cache
@@ -116,17 +152,17 @@ npm run build
 {SITE_PHP} artisan statamic:static:clear
 {SITE_PHP} artisan statamic:static:warm --queue
 
-{RELOAD_PHP_FPM}
-
 echo "🚀 Application deployed!"
 ```
 
 ## Deploy script Forge
 
 ```bash
-if [[ $FORGE_DEPLOY_MESSAGE =~ "[BOT]" ]]; then
-    echo "Automatically committed on production. Nothing to deploy."
-    exit 0
+if [[ $FORGE_QUICK_DEPLOY == 1 ]]; then
+    if [[ $FORGE_DEPLOY_MESSAGE =~ "[BOT]" ]]; then
+        echo "Automatically committed on production. Nothing to deploy."
+        exit 0
+    fi
 fi
 
 cd $FORGE_SITE_PATH
@@ -135,6 +171,10 @@ $FORGE_COMPOSER install --no-interaction --prefer-dist --optimize-autoloader --n
 
 npm ci
 npm run build
+
+( flock -w 10 9 || exit 1
+    echo 'Restarting FPM...'; sudo -S service $FORGE_PHP_FPM reload ) 9>/tmp/fpmlock
+
 $FORGE_PHP artisan cache:clear
 $FORGE_PHP artisan config:cache
 $FORGE_PHP artisan route:cache
@@ -143,7 +183,4 @@ $FORGE_PHP artisan queue:restart
 $FORGE_PHP artisan statamic:search:update --all
 $FORGE_PHP artisan statamic:static:clear
 $FORGE_PHP artisan statamic:static:warm --queue
-
-( flock -w 10 9 || exit 1
-    echo 'Restarting FPM...'; sudo -S service $FORGE_PHP_FPM reload ) 9>/tmp/fpmlock
 ```
